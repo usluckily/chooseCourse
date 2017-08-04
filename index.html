@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>choosecourse</title>
+    <script>
+      //解决ios被动传参延时在该开发模式下的影响
+      window.iosParams = {
+        userid:'',
+        sid:'',
+        roleid:'',
+        perm:'',
+        stuTid:''
+      };
+      function getUserInfo(s1,s2,s3,s4,s5,s6,s7,s8){
+        window.iosParams.userid = s7;
+        window.iosParams.sid = s8;
+        window.iosParams.roleid = s3;
+        window.iosParams.perm = s6;
+        window.iosParams.stuTid = s5;
+      }
+      //解决ios被动传参延时在该开发模式下的影响
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

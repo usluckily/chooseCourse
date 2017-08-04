@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*pageAni*/
+.page-enter-active{
+  transition:right 0.4s ease;
+  right:0;
+}
+.page-enter{
+  right:-150%;
+}
+.page-leave-active{
+  transition:right 0.2s ease;
+  right:-150%;
+}
+.page-leave{
+  right:0;
+}
+/*pageAni*/
