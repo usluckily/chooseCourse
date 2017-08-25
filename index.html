@@ -7,18 +7,22 @@
     <script>
       //解决ios被动传参延时在该开发模式下的影响
       window.iosParams = {
+        isIosApp:false,
         userid:'',
         sid:'',
         roleid:'',
         perm:'',
-        stuTid:''
+        stuTid:'',
+        role:''
       };
-      function getUserInfo(s1,s2,s3,s4,s5,s6,s7,s8){
+      function getUserInfo(s1,s2,s3,s4,s5,s6,s7,s8,s9){
         window.iosParams.userid = s7;
         window.iosParams.sid = s8;
         window.iosParams.roleid = s3;
         window.iosParams.perm = s6;
         window.iosParams.stuTid = s5;
+        window.iosParams.role = s9;
+        window.iosParams.isIosApp = true
       }
       //解决ios被动传参延时在该开发模式下的影响
     </script>
@@ -27,4 +31,9 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+<script>
+//  setTimeout(function(){
+//    location.href = 'http://192.168.0.20:8080/#/myclass'
+//  },3000)
+</script>
 </html>

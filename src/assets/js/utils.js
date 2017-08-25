@@ -13,6 +13,8 @@ export default{
             vm.$root.eventHub.$emit('promptOpen',{ content:'报名课程数已满' })
           }else if( d == '2' ){
             vm.$root.eventHub.$emit('promptOpen',{ content:'报名数大于限报科目数' })
+          }else if( d == '3' ){
+            vm.$root.eventHub.$emit('promptOpen',{ content:'名额已满' })
           }else if( d == '4' ){
             vm.$root.eventHub.$emit('promptOpen',{ content:'请勿重复报名' })
           }else if( d=='6' ){
@@ -27,9 +29,34 @@ export default{
 
       }
     }
+    Vue.prototype.mergeArrsSame = function(arr){
+      let arr2 = arr
+
+      for(var i in arr){
+        for(var j in arr){
+          if(arr[i].studentid == arr[j].studentid && i != j){
+            arr2[i].course+='、'+arr[j].course
+            arr2.splice(j,1)
+          }
+        }
+      }
+      return arr2
+
+    }
+    Vue.prototype.isPer = function(d){
+      let arr , res = false
+      arr = this.$store.state.basic.role.split(',')
+      for(var i in arr){
+        if(d == arr[i]){
+          res =  true
+        }
+      }
+      return res
+    }
     Vue.prototype.BP = function(){
       return this.$store.state.basic
     }
-    Vue.prototype.testUrl = false // '/A'
+    Vue.prototype.vHhost = 'http://'+location.host+'/html5/chooseCourse/index.html#/' //  /html5/chooseCourse/index.html#/   or /#/
+    Vue.prototype.testUrl = false // '/A' or false
   }
 }

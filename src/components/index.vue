@@ -41,18 +41,28 @@
       methods:{
         init(){
           let vm = this , trans = ['course','gradeName','instructor','teacherName'] , BP = vm.$store.state.basic
-          ajax.post(vm.testUrl || IF.getList,{url:(vm.testUrl ? IF.getList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleid:BP.roleid},function(d){
+          ajax.post(vm.testUrl || IF.getList,{url:(vm.testUrl ? IF.getList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
             console.log(d)
             vm.listData.list = d
           },trans)
-          ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),stuTid:BP.stuTid,roleid:BP.roleid},function(d){
+          ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),userid:BP.userid,sid:BP.sid},function(d){
             console.log(d)
             vm.myList.list = d.data
-          },['instructor'])
+          },['gradeName'])
         }
       },
       created(){
         let vm = this
+
+//        alert(vm.vHhost)
+
+        //
+        if(vm.isPer('Z') && window.GreenSchool){
+          GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+        }else if(vm.isPer('Z') && window.iosParams.isIosApp){
+          window.external.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+        }
+        //
 
         vm.init()
         vm.$root.eventHub.$on('statusRefresh',function(){

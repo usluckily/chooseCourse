@@ -21,7 +21,7 @@
                     </dd>
                   </dl>
 
-                  <div class='list_btn' v-if="isPer('P') && i.status != '未开始'" :class="i.btnClass" onclick="event.stopPropagation()"
+                  <div class='list_btn' v-if="isPer('P') && i.status != '未开始' && i.status!='开课中' " :class="i.btnClass" onclick="event.stopPropagation()"
                        @click="apply(i)"
                        :data-id="i.id == 'null' ? '' : i.id"
                   >
@@ -45,7 +45,7 @@
                 <img src="../../assets/img/1.jpg" v-else/>
               </div>
               <div class="info_box">
-                <h4>{{ i.course }} {{ i.gradeName ? "("+i.gradeName+")" : "" }}</h4>
+                <h4>{{ i.course }} <span>{{ i.gradeName ? "("+i.gradeName+")" : "" }}</span> </h4>
                 <div>
                   <dl>
                     <dt>{{ i.teacherName }}</dt>
@@ -54,9 +54,9 @@
                       <span class="r c_yellow">{{ i.status }} </span>
                     </dd>
                   </dl>
-                  <div class="list_btn bg_yellow" @click="cancel(i)" v-if="isPer('P')"  onclick="event.stopPropagation()" >取消报名</div>
+                  <div class="list_btn bg_yellow" @click="cancel(i)" v-if="isPer('P') && i.status!='开课中' "  onclick="event.stopPropagation()" >取消报名</div>
 
-                  <router-link class="list_btn bg_green" v-if="isPer('T')" :to=" '/studentlist/'+i.id " tag="div" onclick="event.stopPropagation()">
+                  <router-link class="list_btn bg_green" v-if="isPer('S')" :to=" '/studentlist/'+i.id " tag="div" onclick="event.stopPropagation()">
                     学生名单
                   </router-link>
 
@@ -110,14 +110,23 @@
           }, delay)
         },
         isPer(d){
-          return d == this.$store.state.basic.role
+          let arr , res = false
+          arr = this.$store.state.basic.role.split(',')
+          for(var i in arr){
+            if(d == arr[i]){
+              res =  true
+            }
+          }
+          return res
         },
         cancel(i){
           let vm = this , BP = vm.BP()
           vm.emitModal({content:'你确定要取消 -'+i.course+'-的报名？'})
 
           vm.$root.eventHub.$on('modalAffirm',function(){
-            ajax.post(vm.testUrl || IF.cancelApply,{url:(vm.testUrl ? IF.cancelApply : undefined),userid:BP.userid,stuTid:BP.stuTid,publishCoursrid: i.id,roleid:BP.roleid,sid:BP.sid},function(d){
+            ajax.post(vm.testUrl || IF.cancelApply,
+              {url:(vm.testUrl ? IF.cancelApply : undefined),userid:BP.userid,stuTid:BP.stuTid,publishCoursrid: i.id,roleid:BP.roleid,sid:BP.sid},
+              function(d){
               vm.emitUpdate()
               vm.$root.eventHub.$emit('modalCancel')
             })
@@ -214,7 +223,7 @@
         let vm = this
         vm.slider()
 
-        if(vm.$store.state.basic.perm == 'P'){
+        if(vm.isPer('S')){
           vm.mySwiper.slideTo(1,300)
         }
 

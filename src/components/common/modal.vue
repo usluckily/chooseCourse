@@ -9,7 +9,7 @@
 
       <div class="modalBox" v-cloak v-if="show">
         <div class="modal" onclick="event.stopPropagation();">
-          <h4 class="modalHeader">{{ localTitle }} {{ show }}</h4>
+          <h4 class="modalHeader">{{ localTitle }}</h4>
           <div class="modalContent">{{ localContent }}</div>
           <div class="modalFooter clearfix">
             <div class="modalBtn" @click="cancel" id= "modalCancel" >{{ localLeftBtn }}</div>

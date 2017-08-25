@@ -37,6 +37,14 @@ a, button, input, textarea {
   -webkit-backface-visibility: hidden;
 }
 
+input::-moz-placeholder {
+  color: #999;
+}
+
+input::-webkit-input-placeholder{
+  color:#999;
+}
+
 .c_green {
   color: #1AB99B;
 }
@@ -232,7 +240,7 @@ a, button, input, textarea {
 .info_box > div dl {
   float: left;
   color: #999;
-  width: 45%;
+  /*width: 45%;*/
   font-size: 0.8rem;
 }
 
@@ -260,6 +268,7 @@ a, button, input, textarea {
 
 .info_box > div dl dd .r {
   float: right;
+  margin-left:0.5rem;
 }
 
 .info_box > div .list_btn {

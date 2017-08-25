@@ -11,7 +11,7 @@
         <div class="content-first clearfix">
 
           <div class="con-tit">
-            <h4>{{ data.course }}</h4>
+            <h4>{{ basic.course }}</h4>
             <div class="first-right" @click="">
               <div class="first-img">
                 <img src="../../static/img/icon.png" >
@@ -68,10 +68,11 @@
             <div class="con-first">社团简介</div>
             <div class="con-second" v-cloak>{{ data.introduce }}</div>
           </div>
-          <div class="wrap-content">
-            <div class="con-first">课程目录</div>
-            <div class="con-second" v-cloak>{{ data.courseContent }}</div>
-          </div>
+
+          <!--<div class="wrap-content">-->
+            <!--<div class="con-first">课程目录</div>-->
+            <!--<div class="con-second" v-cloak>{{ data.courseContent }}</div>-->
+          <!--</div>-->
 
           <!--<div class="wrap-content">-->
             <!--<div class="con-first">上课地点</div>-->
@@ -85,7 +86,10 @@
       <div class="btn_box">
         <div class="btn">
           <!--<div v-on:click="apply(this,$event, basic.id,'content') | setFunc basic.isRegist" class="{{basic.isRegist == '1' ? 'bg_grayH' : 'bg_green' }}">{{ basic.isRegist == '1' ? '已报名' : '我要报名' }}</div>-->
-          <div v-bind:class=" basic.btnClass " v-on:click="apply(basic)" :data-id="basic.id == 'null' ? '' : basic.id" v-if=" isPer('P')">
+          <div v-bind:class=" basic.btnClass "
+               v-on:click="apply(basic)"
+               :data-id="basic.id == 'null' ? '' : basic.id"
+               v-if=" isPer('P') && basic.status!='开课中' && basic.status != '未开始'">
             {{ basic.isRegist == '1' ? '已报名' : '我要报名' }}
           </div>
         </div>
@@ -107,7 +111,14 @@
       },
       methods:{
         isPer(d){
-          return d == this.$store.state.basic.perm
+          let arr , res = false
+          arr = this.$store.state.basic.role.split(',')
+          for(var i in arr){
+            if(d == arr[i]){
+              res =  true
+            }
+          }
+          return res
         }
       },
       filters:{
@@ -148,9 +159,11 @@
       },
       created(){
         let vm = this
+        console.log(localStorage.basic)
         ajax.post(vm.testUrl || IF.getDetail,{url:(vm.testUrl ? IF.getDetail : undefined),courseid:vm.$route.params.id},function(d){
-          console.log(d)
-          vm.data = d.data[0]
+          if(d.data[0]){
+            vm.data = d.data[0]
+          }
         },['introduce','courseContent'])
 
         vm.$root.eventHub.$on('statusRefresh',function(){

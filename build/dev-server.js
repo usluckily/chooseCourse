@@ -1,5 +1,4 @@
 require('./check-versions')()
-var bodyParser = require('body-parser');
 
 var config = require('../config')
 if (!process.env.NODE_ENV) {
@@ -27,6 +26,7 @@ var app = express()
 var compiler = webpack(webpackConfig)
 
 //my code
+var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
