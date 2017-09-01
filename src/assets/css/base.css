@@ -717,7 +717,7 @@ input::-webkit-input-placeholder{
 
 
 .modal {
-  width: 13rem;
+  width: 15rem;
   margin: -3rem auto 0;
   top: 50%;
   background: #fff;
@@ -732,26 +732,26 @@ input::-webkit-input-placeholder{
 }
 
 .modal .modalHeader {
-  font-size: 0.7rem;
-  padding: 0.8em 0.5rem 0.2rem 0.5rem;
+  font-size: 1rem;
+  padding: 1em 0.5rem 0.5rem;
 }
 
 .modal .modalContent {
-  font-size: 0.65rem;
-  padding: 0 0.5rem 0.8rem 0.5rem;
+  font-size: 0.9rem;
+  padding: 0 1rem 1.5rem;
 }
 
 .modal .modalFooter {
   border-top: 1px solid #e2e2e2;
   padding: 0;
-  line-height: 1.8rem;
+  line-height: 2rem;
 }
 
 .modal .modalFooter .modalBtn {
   float: left;
   width: 50%;
   height: 100%;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #0577FF;
 }
 

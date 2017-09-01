@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>choosecourse</title>
+    <title>社团选课</title>
     <script>
       //解决ios被动传参延时在该开发模式下的影响
       window.iosParams = {
@@ -13,6 +13,7 @@
         roleid:'',
         perm:'',
         stuTid:'',
+        roleFlag:'',
         role:''
       };
       function getUserInfo(s1,s2,s3,s4,s5,s6,s7,s8,s9){
@@ -20,6 +21,7 @@
         window.iosParams.sid = s8;
         window.iosParams.roleid = s3;
         window.iosParams.perm = s6;
+        window.iosParams.roleFlag = s4;
         window.iosParams.stuTid = s5;
         window.iosParams.role = s9;
         window.iosParams.isIosApp = true

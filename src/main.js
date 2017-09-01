@@ -17,7 +17,7 @@ Vue.use(utils)//Vue全局能访问
 Vue.config.productionTip = false
 
 
-let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2461',stuTid:'53051',role:'Z,S',roleFlag:'O'};//171
+let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2460,2463',stuTid:'74927175',role:'Z,S',roleFlag:'O'};//171
 // let basic = {userid:'278253515',sid:'143',perm:['XKBM'],roleid:'2460,2481',stuTid:'40382857',role:'JZ',roleFlag:''};
 // let basic = {userid:'910736255',sid:'41',perm:['XKBM'],roleid:'219',stuTid:'39550650',role:'JZ',roleFlag:''};//local
 
@@ -33,8 +33,7 @@ function getRole(){
     },
     async:false,
     success(d){
-      // alert(d)
-      if(d){
+      if(d || d == ''){
         basic.role = d
       }
     }
@@ -57,14 +56,11 @@ if(window.GreenSchool){
 
   getRole()
 
-  alert(JSON.stringify(basic))
+  // alert(JSON.stringify(basic))
 
   if(basic.role == 'P'){
     GreenSchool.showRightBtn(false,'我的表现')
   }
-  // else if(basic.role == 'BZR'){
-  //   GreenSchool.showRightBtn(false,'我的班级,'+location+'myclass')
-  // }
 
 
 }
@@ -104,16 +100,16 @@ if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
       basic.stuTid = window.iosParams.stuTid
       basic.sid = window.iosParams.sid
       basic.roleid = window.iosParams.roleid
+      basic.roleFlag = window.iosParams.roleFlag
       // basic.role = window.iosParams.role
 
       getRole()
 
+      // alert(JSON.stringify(basic))
+
       if(basic.role == 'P'){
         window.external.showRightBtn("yes", "我的表现");
       }
-      // else if(basic.role == 'BZR'){
-      //   window.external.showRightBtn("yes", '我的班级,http://192.168.0.20:8080/#/myclass');
-      // }
 
       new Vue(mainVueObj)
 
@@ -124,9 +120,6 @@ if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
   // getRole()
   new Vue(mainVueObj)
 
-
 }
-
-
 
 

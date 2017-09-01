@@ -4,6 +4,8 @@
       <div class="swiper-wrapper">
         <div class="card_box swiper-slide">
 
+          <m_tips tips="暂时没有数据" v-show="list.length <= 0"></m_tips>
+
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in list" :data-id="i.id" @click="jump(i)" v-cloak :key="index" :data-index="index">
               <div class="img_box">
@@ -37,6 +39,8 @@
         <!--课程列表-->
 
         <div class="card_box swiper-slide">
+
+          <m_tips tips="暂时没有数据" v-show="myList.length <= 0"></m_tips>
 
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in myList" :data-id="i.id" @click="jump(i)" v-cloak :key="index">
@@ -77,6 +81,8 @@
     import ajax from '@/assets/js/ajax'
     import IF from '@/assets/js/interface'
 
+    import tips from '@/components/common/nodatatips'
+
     export default({
       name: 'sliderpage',
       props:{
@@ -103,7 +109,7 @@
           el.style.opacity = '0'
         },
         enter:function(el){
-          var delay = el.dataset.index * 300
+          var delay = el.dataset.index * 200
           setTimeout(function () {
 //            el.style.display = 'block'
             el.style.opacity = '1'
@@ -234,8 +240,8 @@
         vm.$root.eventHub.$off('modalAffirm')
       },
       components:{
-
-      }
+        m_tips:tips
+      },
     })
 </script>
 <style>

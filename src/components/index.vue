@@ -45,7 +45,7 @@
             console.log(d)
             vm.listData.list = d
           },trans)
-          ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),userid:BP.userid,sid:BP.sid},function(d){
+          ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
             console.log(d)
             vm.myList.list = d.data
           },['gradeName'])
@@ -54,11 +54,11 @@
       created(){
         let vm = this
 
-//        alert(vm.vHhost)
-
         //
         if(vm.isPer('Z') && window.GreenSchool){
+//          alert(vm.vHhost+'myclass)
           GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+          GreenSchool.showTitleText('社团选课')
         }else if(vm.isPer('Z') && window.iosParams.isIosApp){
           window.external.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
         }

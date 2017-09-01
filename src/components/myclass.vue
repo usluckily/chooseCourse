@@ -4,9 +4,11 @@
 
       <search_bar :placeholder=" '请输入社团名' "></search_bar>
 
+      <m_tips tips="暂时没有数据" v-show="list.list.length <= 0"></m_tips>
+
       <normal_list>
 
-        <div slot="normallist-tit" class="list-tit">{{ list.mClass }}  {{ '('+list.myClassNum+')' }}</div>
+        <div slot="normallist-tit" class="list-tit">{{ list.mClass }}  <span v-if="list.myClassNum !='' ">{{ '('+list.myClassNum+')' }}</span> </div>
 
         <router-link slot="normallist-item" class="list-item" v-for="(i,index) in list.list" tag="li" :to=" '/studentlist/'+i.communityid " :key="index">
 
@@ -41,6 +43,7 @@
   import searchbar from '@/components/common/searchbar'
   import normallist from '@/components/common/normallist'
   import loader from '@/components/common/loader/ballpulse'
+  import tips from '@/components/common/nodatatips'
 
     export default({
       name: 'myclass',
@@ -77,7 +80,7 @@
         })
 
         vm.$root.eventHub.$on('search',function(d){
-          ajax.post(vm.testUrl || IF.getClasslist,{url:(vm.testUrl ? IF.getClasslist : undefined),sid:vm.BP().sid,stuTid:vm.BP().stuTid,name:encodeURI(d.name),bzr:'1'},function(d){
+          ajax.post(vm.testUrl || IF.getClasslist,{url:(vm.testUrl ? IF.getClasslist : undefined),sid:vm.BP().sid,stuTid:vm.BP().stuTid,name:encodeURI(d.name)},function(d){
             vm.list.list = d
           })
         })
@@ -88,7 +91,8 @@
       components:{
         search_bar:searchbar,
         normal_list:normallist,
-        my_loader:loader
+        my_loader:loader,
+        m_tips:tips
       }
     })
 </script>

@@ -21,4 +21,4 @@ for(var i in arr){
 }
 console.log(arr2)
 
-console.log(decodeURI('%E4%B8%89'))
+console.log(decodeURI('%E4%BD%93%E8%B4%A8%E6%A3%80%E6%B5%8B%E6%A8%A1%E7%89%88'))

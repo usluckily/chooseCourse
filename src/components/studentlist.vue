@@ -2,6 +2,8 @@
   <transition name="page">
     <div class="all">
 
+      <m_tips tips="暂时没有数据" v-show="student.list.length <= 0"></m_tips>
+
       <transition-group  class="icon-list" v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
         <div  class="icon-box" v-for="(i,index) in student.list" :key="index" :data-index="index" @click="nativeApi(i.stutid,i.name)">
           <div class="icon-img-box" >
@@ -20,6 +22,8 @@
   import ajax from '@/assets/js/ajax'
   import IF from '@/assets/js/interface'
 
+  import tips from '@/components/common/nodatatips'
+
     export default({
       name: 'studentList',
       data(){
@@ -28,7 +32,8 @@
             list:[
 
             ]
-          }
+          },
+          pPath:undefined
         }
       },
       methods:{
@@ -45,13 +50,15 @@
           if(window.GreenSchool){
             GreenSchool.goToMyPerformanceActivity(stutid,name)
           }else if(window.iosParams.isIosApp){
-            alert('iosApp')
+//            alert('iosApp')
             window.external.showStuPerformanceView(stutid+','+name)
           }
         }
       },
       created(){
         let vm = this , BP = vm.$store.state.basic
+
+        console.log(vm.$route)
 
         //
         if(window.GreenSchool){
@@ -62,11 +69,24 @@
         }
         //
 
-        ajax.post(vm.testUrl || IF.getStudentList,{url:(vm.testUrl ? IF.getStudentList : undefined),id:vm.$route.params.id,stuTid:BP.stuTid},function(d){
+        let isBZR = localStorage.isBZR
+        ajax.post(vm.testUrl || IF.getStudentList,
+          {url:(vm.testUrl ? IF.getStudentList : undefined),id:vm.$route.params.id,stuTid:BP.stuTid,bzr:isBZR == '1' ? isBZR : undefined},
+          function(d){
           if(d){
             vm.student.list = d.data
           }
         })
+      },
+      beforeRouteEnter(to,from,next){
+        let pPath = from.path //检测前一个路由的path
+        pPath == '/myclass' ? localStorage.isBZR = '1' : localStorage.isBZR = undefined
+        next(vm=>{
+
+        })
+      },
+      components:{
+        m_tips:tips
       }
     })
 </script>

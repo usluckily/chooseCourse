@@ -5,6 +5,8 @@
     <div class="all">
       <search_bar :placeholder=" '请输入学生名' "></search_bar>
 
+      <m_tips tips="暂时没有数据" v-show="list.list.length <= 0"></m_tips>
+
       <normal_list>
         <li slot="normallist-item" class="list-item" v-for="i in list.list">
           <div class="A">
@@ -30,6 +32,7 @@
 
   import searchbar from '@/components/common/searchbar'
   import normallist from '@/components/common/normallist'
+  import tips from '@/components/common/nodatatips'
 
     export default({
       name: 'listdetails',
@@ -69,7 +72,8 @@
       },
       components:{
         search_bar:searchbar,
-        normal_list:normallist
+        normal_list:normallist,
+        m_tips:tips
       }
     })
 </script>
