@@ -74,10 +74,10 @@
             <!--<div class="con-second" v-cloak>{{ data.courseContent }}</div>-->
           <!--</div>-->
 
-          <!--<div class="wrap-content">-->
-            <!--<div class="con-first">上课地点</div>-->
-            <!--<div class="con-second" v-cloak>{{ basic.address }}</div>-->
-          <!--</div>-->
+          <div class="wrap-content">
+            <div class="con-first">上课地点</div>
+            <div class="con-second" v-cloak>{{ basic.address }}</div>
+          </div>
 
         </div>
 
@@ -164,7 +164,7 @@
           if(d.data[0]){
             vm.data = d.data[0]
           }
-        },['introduce','courseContent'])
+        },['introduce','courseContent','address'])
 
         vm.$root.eventHub.$on('statusRefresh',function(){
           vm.basic.isRegist = '1'

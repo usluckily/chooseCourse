@@ -16,9 +16,8 @@ Vue.use(utils)//Vue全局能访问
 
 Vue.config.productionTip = false
 
-
-let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2460,2463',stuTid:'74927175',role:'Z,S',roleFlag:'O'};//171
-// let basic = {userid:'278253515',sid:'143',perm:['XKBM'],roleid:'2460,2481',stuTid:'40382857',role:'JZ',roleFlag:''};
+// let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2460,2463',stuTid:'74927175',role:'',roleFlag:'O'};//171
+let basic = {userid:'696961362',sid:'33',perm:['XKBM'],roleid:'2460,2481',stuTid:'17078',role:'JZ',roleFlag:''};
 // let basic = {userid:'910736255',sid:'41',perm:['XKBM'],roleid:'219',stuTid:'39550650',role:'JZ',roleFlag:''};//local
 
 function getRole(){
@@ -28,19 +27,20 @@ function getRole(){
     type:'POST',
     data:{
       // url:IF.getUserRole,
+      // roleid:basic.roleid,
+      roleFlag:basic.roleFlag,
       userid:basic.userid,
-      roleFlag:basic.roleFlag
+      // stuTid:basic.stuTid
     },
     async:false,
     success(d){
       if(d || d == ''){
+        // alert(d)
         basic.role = d
       }
     }
   })
 }
-
-
 
 if(window.GreenSchool){
   GreenSchool.showLeftBtn(false)
@@ -58,10 +58,18 @@ if(window.GreenSchool){
 
   // alert(JSON.stringify(basic))
 
+  if(window.GreenSchool.putRole){
+    GreenSchool.putRole(basic.role)
+  }
+
   if(basic.role == 'P'){
     GreenSchool.showRightBtn(false,'我的表现')
   }
-
+  // else if(basic.role == 'M'){
+  //   GreenSchool.showRightBtn(false,'查看')
+  // }else if(basic.role == 'S'){
+  //   GreenSchool.showRightBtn(false,'查看')
+  // }
 
 }
 
@@ -107,8 +115,21 @@ if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
 
       // alert(JSON.stringify(basic))
 
+      // try{
+      //   if(window.external.getRoleStatus){
+      //     window.external.getRoleStatus(basic.role+'&我的')
+      //   }
+      // }catch(e){
+      //   alert(e)
+      //   throw e
+      // }
+
+
       if(basic.role == 'P'){
+        // window.external.getRoleStatus(basic.role+"&我的表现");
         window.external.showRightBtn("yes", "我的表现");
+      }else if(basic.role == 'T'){
+        // window.external.getRoleStatus(basic.role);
       }
 
       new Vue(mainVueObj)
@@ -117,7 +138,7 @@ if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
     }
   },100)
 }else{
-  // getRole()
+  getRole()
   new Vue(mainVueObj)
 
 }

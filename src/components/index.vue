@@ -40,7 +40,7 @@
       },
       methods:{
         init(){
-          let vm = this , trans = ['course','gradeName','instructor','teacherName'] , BP = vm.$store.state.basic
+          let vm = this , trans = ['course','gradeName','instructor','teacherName','address'] , BP = vm.$store.state.basic
           ajax.post(vm.testUrl || IF.getList,{url:(vm.testUrl ? IF.getList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
             console.log(d)
             vm.listData.list = d
@@ -48,7 +48,7 @@
           ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
             console.log(d)
             vm.myList.list = d.data
-          },['gradeName'])
+          },['gradeName','address'])
         }
       },
       created(){
