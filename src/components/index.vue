@@ -52,15 +52,21 @@
         }
       },
       created(){
-        let vm = this
+        let vm = this ,basic = vm.BP()
 
         //
         if(vm.isPer('Z') && window.GreenSchool){
-//          alert(vm.vHhost+'myclass)
           GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
           GreenSchool.showTitleText('社团选课')
         }else if(vm.isPer('Z') && window.iosParams.isIosApp){
-          window.external.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+//          window.external.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+//          alert('start')
+          if( basic.role == 'Z' ){
+            window.external.getRoleStatus(basic.role+"&我的表现&"+vm.vHhost+'myclass');
+          }else if( basic.role == 'Z,S' ){
+            window.external.getRoleStatus(basic.role+"&我的表现&");
+          }
+
         }
         //
 

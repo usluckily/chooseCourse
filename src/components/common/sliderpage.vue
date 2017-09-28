@@ -23,6 +23,7 @@
                     </dd>
                   </dl>
 
+                  <!--apply()在utils里-->
                   <div class='list_btn' v-if="isPer('P') && i.status != '未开始' && i.status!='开课中' " :class="i.btnClass" onclick="event.stopPropagation()"
                        @click="apply(i)"
                        :data-id="i.id == 'null' ? '' : i.id"

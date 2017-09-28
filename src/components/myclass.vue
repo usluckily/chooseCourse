@@ -60,7 +60,7 @@
 
       },
       created(){
-        let vm = this
+        let vm = this , basic = vm.BP()
 
         vm.$root.eventHub.$off('search')
 
@@ -69,7 +69,13 @@
           GreenSchool.showRightBtn(false,'详细列表,'+vm.vHhost+'listdetails')
           GreenSchool.showTitleText('我的班级')
         }else if(window.iosParams.isIosApp){
-          window.external.showRightBtn(false,'详细列表,'+vm.vHhost+'listdetails')
+//          window.external.showRightBtn(false,'详细列表,'+vm.vHhost+'listdetails')
+          if( basic.role == 'Z' ){
+            window.external.getRoleStatus(basic.role+"&详细列表&"+vm.vHhost+'listdetails');
+          }else if( basic.role == 'Z,S' ){
+            window.external.getRoleStatus(basic.role+"&详细列表&");
+          }
+//          window.external.getRoleStatus("Z&详细列表&"+vm.vHhost+'listdetails');
         }
         //
 
