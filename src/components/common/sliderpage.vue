@@ -5,6 +5,7 @@
         <div class="card_box swiper-slide">
 
           <m_tips tips="暂时没有数据" v-show="list.length <= 0"></m_tips>
+          <m_ballPulse v-show=" !list.length "></m_ballPulse>
 
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in list" :data-id="i.id" @click="jump(i)" v-cloak :key="index" :data-index="index">
@@ -42,6 +43,7 @@
         <div class="card_box swiper-slide">
 
           <m_tips tips="暂时没有数据" v-show="myList.length <= 0"></m_tips>
+          <m_ballPulse v-show=" !myList.length "></m_ballPulse>
 
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in myList" :data-id="i.id" @click="jump(i)" v-cloak :key="index">
@@ -83,6 +85,8 @@
     import IF from '@/assets/js/interface'
 
     import tips from '@/components/common/nodatatips'
+    import ballPulse from '@/components/common/loader/ballpulse'
+
 
     export default({
       name: 'sliderpage',
@@ -101,7 +105,7 @@
       },
       data(){
         return {
-          mySwiper:''
+          mySwiper:'',
         }
       },
       methods:{
@@ -148,6 +152,9 @@
         },
         jump(i){
           let vm = this
+          if( !i.teacherList ){
+            i.teacherList = []
+          }
           localStorage.basic = JSON.stringify(i)
           console.log(localStorage.basic)
           vm.$router.push({path:'/content/'+i.courseid})
@@ -241,7 +248,8 @@
         vm.$root.eventHub.$off('modalAffirm')
       },
       components:{
-        m_tips:tips
+        m_tips:tips,
+        m_ballPulse:ballPulse
       },
     })
 </script>

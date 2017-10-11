@@ -16,7 +16,7 @@ Vue.use(utils)//Vue全局能访问
 
 Vue.config.productionTip = false
 
-let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2460,2463',stuTid:'74927175',role:'',roleFlag:'O'};//171
+let basic = {userid:'915944180',sid:'143',perm:['XKBM'],roleid:'2460',stuTid:'715042926',role:'',roleFlag:'O'};//171
 // let basic = {userid:'696961362',sid:'33',perm:['XKBM'],roleid:'2460,2481',stuTid:'17078',role:'JZ',roleFlag:''};
 // let basic = {userid:'910736255',sid:'41',perm:['XKBM'],roleid:'219',stuTid:'39550650',role:'JZ',roleFlag:''};//local
 
@@ -47,40 +47,12 @@ function getRole(){
   })
 }
 
-if(window.GreenSchool){
-  GreenSchool.showLeftBtn(false)
-
-  basic.stuTid = GreenSchool.getStudentId()
-  basic.userid = GreenSchool.getUserID()
-  basic.sid = GreenSchool.getSchoolId()
-  basic.roleFlag = GreenSchool.getRoleFlag()
-  if(GreenSchool.setStatusBarByColor){
-    // GreenSchool.setStatusBarByColor('#D74F25')//  #D74F25
-  }
-  basic.roleid = GreenSchool.getRoleId()
-
-  getRole()
-
-  // alert(JSON.stringify(basic))
-
-  if(window.GreenSchool.putRole){
-    GreenSchool.putRole(basic.role)
-  }
-
-  if(basic.role == 'P'){
-    GreenSchool.showRightBtn(false,'我的')
-  }
-  else if(basic.role == 'M'){
-    GreenSchool.showRightBtn(false,'查看')
-  }else if(basic.role == 'S'){
-    GreenSchool.showRightBtn(false,'查看')
-  }
-
-}
-
 const store = new Vuex.Store({
   state:{
-    basic:basic
+    basic:basic,
+    canSub:true,
+    list:[],
+    myList:[]
   },
   mutations:{
 
@@ -106,7 +78,31 @@ const mainVueObj = {
   components: { App }
 }
 
-if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+if(window.GreenSchool){
+  GreenSchool.showLeftBtn(false)
+
+  basic.stuTid = GreenSchool.getStudentId()
+  basic.userid = GreenSchool.getUserID()
+  basic.sid = GreenSchool.getSchoolId()
+  basic.roleFlag = GreenSchool.getRoleFlag()
+  if(GreenSchool.setStatusBarByColor){
+    // GreenSchool.setStatusBarByColor('#D74F25')//  #D74F25
+  }
+
+
+  basic.roleid = GreenSchool.getRoleId()
+
+  getRole()
+
+  // alert(JSON.stringify(basic))
+
+  if(window.GreenSchool.putRole){
+    GreenSchool.putRole(basic.role)
+  }
+
+  new Vue(mainVueObj)
+
+}else if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
   let SI = setInterval(function(){
     if(window.iosParams.userid != ''){
       basic.userid = window.iosParams.userid
@@ -130,10 +126,16 @@ if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
 
 
       if(basic.role == 'P'){
-        window.external.getRoleStatus(basic.role+"&我的表现");
-        // window.external.showRightBtn("yes", "我的表现");
+        if(window.external.getRoleStatus){
+          window.external.getRoleStatus(basic.role+"&我的");
+        }else{
+          window.external.showRightBtn("yes", "我的表现");
+        }
       }else if(basic.role == 'T'){
-        window.external.getRoleStatus(basic.role);
+        if(window.external.getRoleStatus){
+          window.external.getRoleStatus(basic.role);
+        }
+
       }
       // else if(basic.role == 'Z'){
       //   try{

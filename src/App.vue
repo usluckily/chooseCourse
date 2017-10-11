@@ -2,7 +2,7 @@
   <div id="app">
     <my_prompt ></my_prompt>
 
-    <my_loader></my_loader>
+    <!--<my_loader></my_loader>-->
 
     <router-view></router-view>
   </div>

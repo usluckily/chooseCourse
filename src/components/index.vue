@@ -40,33 +40,64 @@
       },
       methods:{
         init(){
-          let vm = this , trans = ['course','gradeName','instructor','teacherName','address'] , BP = vm.$store.state.basic
-          ajax.post(vm.testUrl || IF.getList,{url:(vm.testUrl ? IF.getList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
-            console.log(d)
-            vm.listData.list = d
-          },trans)
-          ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
-            console.log(d)
-            vm.myList.list = d.data
-          },['gradeName','address'])
+          let vm = this , trans = ['course','gradeName','instructor','teacherName','address'] , vState = vm.$store.state , BP = vState.basic
+          if( !vState.list.length ){
+            ajax.post(vm.testUrl || IF.getList,{url:(vm.testUrl ? IF.getList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
+//              console.log('list:'+JSON.stringify(d))
+
+              vState.list = vm.listData.list = d
+
+            },trans)
+          }else{
+            vm.listData.list = vState.list
+          }
+
+          if( !vState.myList.length ){
+            ajax.post(vm.testUrl || IF.getMyList,{url:(vm.testUrl ? IF.getMyList : undefined),stuTid:BP.stuTid,sid:BP.sid,roleId:BP.roleid},function(d){
+//              console.log('myList:'+JSON.stringify(d))
+
+              vState.myList = vm.myList.list = d.data
+
+            },['gradeName'])
+          }else{
+            vm.myList.list = vState.myList
+          }
+
         }
       },
       created(){
         let vm = this ,basic = vm.BP()
 
         //
-        if(vm.isPer('Z') && window.GreenSchool){
-          GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
-          GreenSchool.showTitleText('社团选课')
-        }else if(vm.isPer('Z') && window.iosParams.isIosApp){
-//          window.external.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
-//          alert('start')
-          if( basic.role == 'Z' ){
-            window.external.getRoleStatus(basic.role+"&我的表现&"+vm.vHhost+'myclass');
-          }else if( basic.role == 'Z,S' ){
-            window.external.getRoleStatus(basic.role+"&我的表现&");
-          }
 
+        if(window.GreenSchool){
+          GreenSchool.showTitleText('社团选课')
+          if(basic.role == 'P'){
+            GreenSchool.showRightBtn(false,'我的')
+          }
+          else if(basic.role == 'M'){
+            GreenSchool.showRightBtn(false,'查看')
+          }else if(basic.role.indexOf('S') != -1){
+            GreenSchool.showRightBtn(false,'查看')
+          }else if(basic.role == 'Z'){
+            GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+          }
+        }else if(window.iosParams.isIosApp){
+          if(basic.role == 'P'){
+            if(window.external.getRoleStatus){
+              window.external.getRoleStatus(basic.role+"&我的");
+            }else{
+              window.external.showRightBtn("yes", "我的表现");
+            }
+
+          }
+          else if(basic.role == 'M'){
+            window.external.getRoleStatus(basic.role+"&查看");
+          }else if(basic.role.indexOf('S') != -1){
+            window.external.getRoleStatus(basic.role+"&查看");
+          }else if(basic.role == 'Z'){
+            window.external.getRoleStatus(basic.role+"&我的班级&"+vm.vHhost+'myclass');
+          }
         }
         //
 

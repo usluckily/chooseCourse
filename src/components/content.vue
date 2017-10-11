@@ -25,15 +25,37 @@
           </div>
         </div>
 
-        <div class="content-second">
-          <div class="second-left">
+        <div class="content-second" v-if=" !basic.teacherList.length ">
+          <div class="second-left" >
             <img src="../../static/img/banner.jpg" style="width:4rem;height:4rem">
           </div>
           <div class="second-right">
             <div class="right-name" v-cloak>任课老师:{{ basic.teacherName }}</div>
             <div class="right-branch" v-cloak>{{ basic.xxx ? '' :'未分组' }}</div>
           </div>
+
         </div>
+
+        <!--new module , for teacher list-->
+
+        <div class="icon-list" v-if=" basic.teacherList.length " style="background:#fff">
+
+          <div  class="icon-box" v-for="i in basic.teacherList">
+
+            <div class="icon-img-box" >
+              <img :src="i.teacherpicture" v-if="i.teacherpicture != 'null' &&　i.teacherpicture != '' "/>
+              <img src="../assets/img/defaultheadpic.jpg" v-else/>
+            </div>
+
+            <p>{{ i.teacherName }}老师</p>
+
+          </div>
+
+        </div>
+
+        <!--new module , for teacher list-->
+
+
         <div class="foot-time">
           <div class="time-first">
             <div class="time-img-first">

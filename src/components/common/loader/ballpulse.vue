@@ -1,12 +1,10 @@
 <template>
 
-  <div class="loader-box" v-show="loader">
-    <div class="loader">
-      <div class="loader-inner ball-pulse">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+  <div class="loader-cover">
+    <div class="loader-inner ball-pulse">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 
@@ -39,16 +37,17 @@
     })
 </script>
 <style>
-.loader-box{
-  position:fixed;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:rgba(255,255,255,0.5);
-  z-index:100;
-}
+  .loader-cover{
+    position:absolute;
+    z-index:100;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    font-size: 0.8rem;
+    align-items:center;
+  }
 </style>
