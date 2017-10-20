@@ -4,7 +4,6 @@
 import $ from 'jquery'
 import T from '@/assets/js/transcoding'
 
-
 function isInArr(c,p){
   let state = false , len = p.length;
   for(var i = 0;i<len;i++){
@@ -14,9 +13,10 @@ function isInArr(c,p){
 }
 
 function transDataFunc(Info,transData){
+  var Str
   if(transData){//transData用数组传进来
     for(var i in transData){
-      var Str = T.toUtf16( Info[ transData[i] ] );
+      Str = T.toUtf16( Info[ transData[i] ] );
       Info[ transData[i] ] = Str;
     }
     return Info;
@@ -25,18 +25,24 @@ function transDataFunc(Info,transData){
 
 function transd(trans,d){
   let res = d;
-  console.log(res instanceof Array);
   if(trans){
     if(res instanceof Array){
       for(var i in res){
         res[i] = transDataFunc(res[i],trans);
+
       }
     }else{
       for(var i in res){
         if(res[i] instanceof Array){
+
           for(var j in res[i]){
+
+            console.log('xxx:'+JSON.stringify(res[i][j]))
+
             res[i][j] = transDataFunc(res[i][j],trans);
+
           }
+
         }
         else if(typeof res[i] == 'string' && isInArr(i,trans)){
           res[i] = T.toUtf16( res[i] );

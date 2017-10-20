@@ -16,11 +16,12 @@ Vue.use(utils)//Vue全局能访问
 
 Vue.config.productionTip = false
 
-let basic = {userid:'915944180',sid:'143',perm:['XKBM'],roleid:'2460',stuTid:'715042926',role:'',roleFlag:'O'};//171
+let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2641',stuTid:'53051',role:'',roleFlag:'P',};//171
 // let basic = {userid:'696961362',sid:'33',perm:['XKBM'],roleid:'2460,2481',stuTid:'17078',role:'JZ',roleFlag:''};
 // let basic = {userid:'910736255',sid:'41',perm:['XKBM'],roleid:'219',stuTid:'39550650',role:'JZ',roleFlag:''};//local
 
 function getRole(){
+  // alert(JSON.stringify(basic))
   $.ajax({
     // url:'/A',
     url:IF.getUserRole,
@@ -29,13 +30,14 @@ function getRole(){
       // url:IF.getUserRole,
       // roleid:basic.roleid,
       // roleFlag:basic.roleFlag,//old
+      showAll:basic.perm ? 1 : 0,
       userid:basic.userid,
       stuTid:basic.stuTid
     },
     async:false,
     success(d){
       if(d || d == ''){
-        alert(d)
+        // alert(d)
         basic.role = d
       }
     },
@@ -85,6 +87,7 @@ if(window.GreenSchool){
   basic.userid = GreenSchool.getUserID()
   basic.sid = GreenSchool.getSchoolId()
   basic.roleFlag = GreenSchool.getRoleFlag()
+  basic.perm = GreenSchool.getPermissions('XKST')
   if(GreenSchool.setStatusBarByColor){
     // GreenSchool.setStatusBarByColor('#D74F25')//  #D74F25
   }
@@ -110,38 +113,23 @@ if(window.GreenSchool){
       basic.sid = window.iosParams.sid
       basic.roleid = window.iosParams.roleid
       basic.roleFlag = window.iosParams.roleFlag
+      basic.perm = window.iosParams.perm
       // basic.role = window.iosParams.role
 
       getRole()
 
       // alert(JSON.stringify(basic))
 
-      // try{
+
+      // if(basic.role == 'P'){
       //   if(window.external.getRoleStatus){
-      //     window.external.getRoleStatus(basic.role+'&我的')
+      //     window.external.getRoleStatus(basic.role+"&我的");
+      //   }else{
+      //     window.external.showRightBtn("yes", "我的表现");
       //   }
-      // }catch(e){
-      //   throw e
-      // }
-
-
-      if(basic.role == 'P'){
-        if(window.external.getRoleStatus){
-          window.external.getRoleStatus(basic.role+"&我的");
-        }else{
-          window.external.showRightBtn("yes", "我的表现");
-        }
-      }else if(basic.role == 'T'){
-        if(window.external.getRoleStatus){
-          window.external.getRoleStatus(basic.role);
-        }
-
-      }
-      // else if(basic.role == 'Z'){
-      //   try{
-      //     window.external.getRoleStatus(basic.role+"&我的表现&"+"http://"+location.host+"/html5/chooseCourse/index.html#/myclass");
-      //   }catch(e){
-      //     throw e
+      // }else if(basic.role == 'T'){
+      //   if(window.external.getRoleStatus){
+      //     window.external.getRoleStatus(basic.role);
       //   }
       //
       // }

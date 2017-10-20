@@ -5,7 +5,7 @@
         <div class="card_box swiper-slide">
 
           <m_tips tips="暂时没有数据" v-show="list.length <= 0"></m_tips>
-          <m_ballPulse v-show=" !list.length "></m_ballPulse>
+          <m_ballPulse v-show=" listLoader "></m_ballPulse>
 
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in list" :data-id="i.id" @click="jump(i)" v-cloak :key="index" :data-index="index">
@@ -43,7 +43,7 @@
         <div class="card_box swiper-slide">
 
           <m_tips tips="暂时没有数据" v-show="myList.length <= 0"></m_tips>
-          <m_ballPulse v-show=" !myList.length "></m_ballPulse>
+          <m_ballPulse v-show=" myListLoader "></m_ballPulse>
 
           <transition-group v-on:before-enter="beforeEnter" v-on:enter="enter" tag="div">
             <div class="in_card_box clearfix" v-for="(i,index) in myList" :data-id="i.id" @click="jump(i)" v-cloak :key="index">
@@ -98,6 +98,14 @@
         myData:{
           type:Array,
           default:[]
+        },
+        listLoader:{
+          type:Boolean,
+          default:true
+        },
+        myListLoader:{
+          type:Boolean,
+          default:true
         },
         test:{
           type:String
@@ -218,7 +226,12 @@
           return listFilter
         },
         myList(){
-          return this.myData
+          let vm = this , listFilter = vm.myData
+          listFilter.filter(function(x){
+            x.class = vm.setStatusColor(x.status,x.isRegist).txtStatusClass
+            x.btnClass = vm.setStatusColor(x.status,x.isRegist).btnStatusClass
+          })
+          return listFilter
         }
       },
       created(){

@@ -715,11 +715,10 @@ input::-webkit-input-placeholder{
   opacity:0.7;
 }
 
-
 .modal {
   width: 15rem;
   margin: -3rem auto 0;
-  top: 50%;
+  top: 40%;
   background: #fff;
   position: relative;
   border-radius: 0.4rem;

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>社团选课123</title>
+    <title>社团选课</title>
     <script>
       //解决ios被动传参延时在该开发模式下的影响
       window.iosParams = {
@@ -20,7 +20,7 @@
         window.iosParams.userid = s7;
         window.iosParams.sid = s8;
         window.iosParams.roleid = s3;
-        window.iosParams.perm = s6;
+        window.iosParams.perm = s6.split(',');
         window.iosParams.roleFlag = s4;
         window.iosParams.stuTid = s5;
         window.iosParams.role = s9;

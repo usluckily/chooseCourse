@@ -37,8 +37,9 @@
         </div>
 
         <!--new module , for teacher list-->
+        <div class="con-first" style="background: #fff;margin: 0;padding: 1rem 1rem 0 1rem;">任课老师</div>
 
-        <div class="icon-list" v-if=" basic.teacherList.length " style="background:#fff">
+        <div class="icon-list" v-if=" basic.teacherList.length " style="background:#fff;padding:0;">
 
           <div  class="icon-box" v-for="i in basic.teacherList">
 
@@ -47,7 +48,7 @@
               <img src="../assets/img/defaultheadpic.jpg" v-else/>
             </div>
 
-            <p>{{ i.teacherName }}老师</p>
+            <p>{{ i.teacherName | deBase64 }}</p>
 
           </div>
 
@@ -122,6 +123,7 @@
 <script>
   import ajax from '@/assets/js/ajax'
   import IF from '@/assets/js/interface'
+  import T from '@/assets/js/transcoding'
 
     export default({
       name: 'content',
@@ -177,6 +179,10 @@
             return '报名时间已过';
           }
 
+        },
+        deBase64(value){
+
+          return T.toUtf16(value)
         }
       },
       created(){
