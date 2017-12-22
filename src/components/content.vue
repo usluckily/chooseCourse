@@ -12,7 +12,7 @@
 
           <div class="con-tit">
             <h4>{{ basic.course }}</h4>
-            <div class="first-right" @click="">
+            <div class="first-right" @click=" toStudentlist(basic.id) " >
               <div class="first-img">
                 <img src="../../static/img/icon.png" >
               </div>
@@ -143,6 +143,17 @@
             }
           }
           return res
+        },
+        toStudentlist(id){
+          let vm = this
+
+          if( vm.$store.state.basic.role.indexOf('S') != -1 ){
+            vm.$router.push({path:'/studentlist/'+id})
+          }else{
+            return
+          }
+
+
         }
       },
       filters:{

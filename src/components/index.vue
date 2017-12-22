@@ -83,6 +83,8 @@
         if(window.GreenSchool){
           GreenSchool.showTitleText('社团选课')
 
+          GreenSchool.putWhichPage ? GreenSchool.putWhichPage('') : ''
+
           if(basic.role == 'P'){
             GreenSchool.showRightBtn(false,'我的')
           }
@@ -92,7 +94,7 @@
 //            GreenSchool.showRightBtn(false,'查看')
 //          }
           else if(basic.role == 'Z'){
-            GreenSchool.showRightBtn(false,'我的班级,'+vm.vHhost+'myclass')
+            GreenSchool.showRightBtn(false,'查看,'+vm.vHhost+'myclass')
           }else if(basic.role == 'T'){
             GreenSchool.showRightBtn(false,'')
           }else if(basic.role == 'Z,S' || basic.role == 'M,Z,S' || basic.role == 'M,Z'){
@@ -116,7 +118,7 @@
 //            window.external.getRoleStatus(basic.role+"&查看");
 //          }
           else if(basic.role == 'Z'){
-            window.external.getRoleStatus(basic.role+"&我的班级&"+vm.vHhost+'myclass');
+            window.external.getRoleStatus(basic.role+"&查看&"+vm.vHhost+'myclass');
           }else if(basic.role == 'T'){
             window.external.getRoleStatus(basic.role);
           }else if(basic.role == 'Z,S' || basic.role == 'M,Z,S' || basic.role == 'M,Z'){

@@ -16,19 +16,17 @@ Vue.use(utils)//Vue全局能访问
 
 Vue.config.productionTip = false
 
-let basic = {userid:'866658324',sid:'143',perm:['XKBM'],roleid:'2641',stuTid:'53051',role:'',roleFlag:'P',};//171
+let basic = {userid:'525129409',sid:'41',perm:'',roleid:'221',stuTid:'48521',role:'',roleFlag:'P',};//171
 // let basic = {userid:'696961362',sid:'33',perm:['XKBM'],roleid:'2460,2481',stuTid:'17078',role:'JZ',roleFlag:''};
 // let basic = {userid:'910736255',sid:'41',perm:['XKBM'],roleid:'219',stuTid:'39550650',role:'JZ',roleFlag:''};//local
 
 function getRole(){
   // alert(JSON.stringify(basic))
   $.ajax({
-    // url:'/A',
     url:IF.getUserRole,
     type:'POST',
     data:{
-      // url:IF.getUserRole,
-      // roleid:basic.roleid,
+      roleid:basic.roleid,
       // roleFlag:basic.roleFlag,//old
       showAll:basic.perm ? 1 : 0,
       userid:basic.userid,
@@ -37,7 +35,6 @@ function getRole(){
     async:false,
     success(d){
       if(d || d == ''){
-        // alert(d)
         basic.role = d
       }
     },
@@ -88,6 +85,7 @@ if(window.GreenSchool){
   basic.sid = GreenSchool.getSchoolId()
   basic.roleFlag = GreenSchool.getRoleFlag()
   basic.perm = GreenSchool.getPermissions('XKST')
+
   if(GreenSchool.setStatusBarByColor){
     // GreenSchool.setStatusBarByColor('#D74F25')//  #D74F25
   }
@@ -115,7 +113,6 @@ if(window.GreenSchool){
       basic.roleFlag = window.iosParams.roleFlag
       basic.perm = window.iosParams.perm
       // basic.role = window.iosParams.role
-
       getRole()
 
       // alert(JSON.stringify(basic))

@@ -83,7 +83,7 @@ export default{
       data:data,
       url:url,
       async:true,
-      timeout:10000,
+      // timeout:10000,
       success(d){
         // alert(d)
         let res

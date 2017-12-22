@@ -64,6 +64,7 @@
         if(window.GreenSchool){
           GreenSchool.showRightBtn(true,'')
           GreenSchool.showTitleText('学生名单')
+          GreenSchool.putWhichPage ? GreenSchool.putWhichPage('') : ''
         }else if(window.iosParams.isIosApp){
           window.external.showRightBtn(true,'')
         }

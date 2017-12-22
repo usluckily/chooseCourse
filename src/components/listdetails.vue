@@ -8,16 +8,34 @@
       <m_tips tips="暂时没有数据" v-show="list.list.length <= 0"></m_tips>
 
       <normal_list>
+        <!--<li slot="normallist-item" class="list-item" v-for="i in list.list">-->
+          <!--<div class="A">-->
+            <!--<div>-->
+              <!--<img :src="i.picsummary" v-if="i.picsummary != 'null' && i.picsummary != '' "/>-->
+              <!--<img src="../assets/img/defaultheadpic.jpg" v-else/>-->
+            <!--</div>-->
+            <!--<span>{{ i.studentname }}</span>-->
+          <!--</div>-->
+          <!--<p class="B">{{ i.course }}</p>-->
+        <!--</li>-->
+
         <li slot="normallist-item" class="list-item" v-for="i in list.list">
+
           <div class="A">
+
             <div>
               <img :src="i.picsummary" v-if="i.picsummary != 'null' && i.picsummary != '' "/>
               <img src="../assets/img/defaultheadpic.jpg" v-else/>
             </div>
-            <span>{{ i.studentname }}</span>
+
+            <span style="margin-left:0.5rem;width:4rem;">{{ i.studentname }}</span>
+
+            <p class="B" style="margin-left:0.5rem;">{{ i.course }}</p>
           </div>
-          <p class="B">{{ i.course }}</p>
+
         </li>
+
+
       </normal_list>
 
     </div>
@@ -56,6 +74,7 @@
         if(window.GreenSchool){
           GreenSchool.showRightBtn(true,'')
           GreenSchool.showTitleText('详细列表')
+          GreenSchool.putWhichPage ? GreenSchool.putWhichPage('') : ''
         }else if(window.iosParams.isIosApp){
           window.external.showRightBtn(true,'')
         }
@@ -96,7 +115,7 @@
   }
   .list-item .A>span{
     margin-left:1rem;
-    font-size:0.85rem;
+    /*font-size:0.85rem;*/
   }
   .list-item>.B{
     line-height:2rem;
